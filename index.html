@@ -1,0 +1,374 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residential Construction Cost Estimator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #4F46E5;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #4F46E5;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Residential Construction Cost Estimator</h1>
+            <p class="mt-2 text-md text-gray-600">A tool to forecast project costs based on a dynamic model.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Input & Modifiers Column -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Project Size Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 border-b pb-3">Project Size</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="buildingSF" class="block text-sm font-medium text-gray-700">Building Area (GSF)</label>
+                            <input type="number" id="buildingSF" value="350000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                        <div>
+                            <label for="units" class="block text-sm font-medium text-gray-700">Number of Units</label>
+                            <input type="number" id="units" value="350" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost Modifiers Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 border-b pb-3">Cost Modifiers</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                        <!-- Site & Structure Modifiers -->
+                        <div class="space-y-3">
+                            <h3 class="text-lg font-medium text-gray-800">Site & Structure</h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">On-site Demolition</span>
+                                <input type="checkbox" id="demo" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Tall Structure (>20 stories)</span>
+                                <input type="checkbox" id="tallStructure" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">High Qty/All Glass Envelope</span>
+                                <input type="checkbox" id="glassEnvelope" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Significant Roof Amenities</span>
+                                <input type="checkbox" id="roofAmenities" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                        </div>
+                        <!-- Interior & MEP Modifiers -->
+                        <div class="space-y-3">
+                             <h3 class="text-lg font-medium text-gray-800">Interior & MEP</h3>
+                            <div>
+                                <label for="finishes" class="block text-sm font-medium text-gray-700 mb-1">Finishes</label>
+                                <select id="finishes" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                                    <option value="0">Standard</option>
+                                    <option value="20">Luxury</option>
+                                    <option value="-5">Affordable</option>
+                                </select>
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Luxury Equipment Package</span>
+                                <input type="checkbox" id="luxuryEquipment" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Central HVAC System</span>
+                                <input type="checkbox" id="centralHVAC" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">High-End Light Fixtures</span>
+                                <input type="checkbox" id="highEndLights" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                        </div>
+                         <!-- Foundation Modifiers -->
+                        <div class="space-y-3">
+                            <h3 class="text-lg font-medium text-gray-800">Foundations & Parking</h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Adjacent Underpinning</span>
+                                <input type="checkbox" id="underpinning" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Deep Foundations</span>
+                                <input type="checkbox" id="deepFoundations" class="toggle-checkbox h-6 w-11 rounded-full appearance-none bg-gray-200 checked:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Top-Level Factors Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 border-b pb-3">Top-Level Factors</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="cityFactor" class="block text-sm font-medium text-gray-700">City Factor (%)</label>
+                            <input type="number" id="cityFactor" value="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                        <div>
+                            <label for="escalation" class="block text-sm font-medium text-gray-700">Escalation (%)</label>
+                            <input type="number" id="escalation" value="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cost Breakdown Column -->
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-xl shadow-md sticky top-8">
+                    <h2 class="text-xl font-semibold mb-4 border-b pb-3">Cost Breakdown</h2>
+                    <div id="cost-summary" class="space-y-3">
+                        <!-- Base Costs -->
+                        <div>
+                            <h3 class="font-medium text-indigo-700">Base Costs</h3>
+                            <dl class="mt-1 space-y-1 text-sm">
+                                <div class="flex justify-between"><dt>Residential:</dt><dd id="baseResidentialCost" class="font-mono"></dd></div>
+                                <div class="flex justify-between"><dt>Parking:</dt><dd id="baseParkingCost" class="font-mono"></dd></div>
+                                <div class="flex justify-between"><dt>Site Work:</dt><dd id="baseSiteWorkCost" class="font-mono"></dd></div>
+                            </dl>
+                        </div>
+                        <!-- Adjustments -->
+                        <div id="adjustmentsSection" class="hidden">
+                             <h3 class="font-medium text-indigo-700">Adjustments</h3>
+                             <dl id="adjustmentsList" class="mt-1 space-y-1 text-sm text-gray-600"></dl>
+                        </div>
+                         <!-- Totals -->
+                        <div class="border-t pt-3 space-y-2">
+                             <h3 class="font-medium text-indigo-700">Totals</h3>
+                             <dl class="space-y-1 text-sm">
+                                <div class="flex justify-between font-semibold"><dt>Adjusted Total:</dt><dd id="adjustedTotal" class="font-mono"></dd></div>
+                                <div class="flex justify-between text-gray-600"><dt>City Factor Cost:</dt><dd id="cityFactorCost" class="font-mono"></dd></div>
+                                <div class="flex justify-between text-gray-600"><dt>Escalation Cost:</dt><dd id="escalationCost" class="font-mono"></dd></div>
+                            </dl>
+                        </div>
+                        <!-- Grand Totals -->
+                        <div class="border-t-2 border-indigo-200 pt-3 space-y-2 text-lg">
+                            <dl class="space-y-2">
+                                <div class="flex justify-between font-bold text-gray-900"><dt>Grand Total:</dt><dd id="grandTotal" class="font-mono text-indigo-600"></dd></div>
+                                <div class="flex justify-between font-bold text-gray-900"><dt>Cost / Unit:</dt><dd id="costPerUnit" class="font-mono text-indigo-600"></dd></div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM ELEMENTS ---
+            const buildingSFInput = document.getElementById('buildingSF');
+            const unitsInput = document.getElementById('units');
+            const allInputs = document.querySelectorAll('input, select');
+
+            // --- CONSTANTS ---
+            const GSF_PER_UNIT = 1000;
+            const RESIDENTIAL_COST_PER_SF = 250;
+            const PARKING_SPACES_PER_UNIT = 0.6;
+            const PARKING_SF_PER_SPACE = 500;
+            const PARKING_COST_PER_SF = 120;
+            const SITE_WORK_COST_PER_SF = 10;
+
+            // --- EVENT LISTENERS ---
+            buildingSFInput.addEventListener('input', () => {
+                const sf = parseFloat(buildingSFInput.value) || 0;
+                unitsInput.value = Math.round(sf / GSF_PER_UNIT);
+                calculateCosts();
+            });
+
+            unitsInput.addEventListener('input', () => {
+                const units = parseFloat(unitsInput.value) || 0;
+                buildingSFInput.value = units * GSF_PER_UNIT;
+                calculateCosts();
+            });
+
+            allInputs.forEach(input => {
+                input.addEventListener('input', calculateCosts);
+                input.addEventListener('change', calculateCosts); // for select and checkbox
+            });
+
+            // --- CALCULATION LOGIC ---
+            function calculateCosts() {
+                // --- GET INPUT VALUES ---
+                let buildingSF = parseFloat(buildingSFInput.value) || 0;
+                let units = parseFloat(unitsInput.value) || 0;
+
+                if (units === 0 && buildingSF > 0) {
+                    units = Math.round(buildingSF / GSF_PER_UNIT);
+                    unitsInput.value = units;
+                } else if (buildingSF === 0 && units > 0) {
+                    buildingSF = units * GSF_PER_UNIT;
+                    buildingSFInput.value = buildingSF;
+                }
+
+                if (units === 0) {
+                    resetUI();
+                    return;
+                }
+                
+                // Modifier flags and values
+                const demo = document.getElementById('demo').checked;
+                const tallStructure = document.getElementById('tallStructure').checked;
+                const glassEnvelope = document.getElementById('glassEnvelope').checked;
+                const roofAmenities = document.getElementById('roofAmenities').checked;
+                const finishes = parseFloat(document.getElementById('finishes').value);
+                const luxuryEquipment = document.getElementById('luxuryEquipment').checked;
+                const centralHVAC = document.getElementById('centralHVAC').checked;
+                const highEndLights = document.getElementById('highEndLights').checked;
+                const underpinning = document.getElementById('underpinning').checked;
+                const deepFoundations = document.getElementById('deepFoundations').checked;
+
+                const cityFactor = parseFloat(document.getElementById('cityFactor').value) || 0;
+                const escalation = parseFloat(document.getElementById('escalation').value) || 0;
+
+                // --- BASE CALCULATIONS ---
+                const baseResidentialCost = buildingSF * RESIDENTIAL_COST_PER_SF;
+                
+                const parkingSpaces = units * PARKING_SPACES_PER_UNIT;
+                const parkingSF = parkingSpaces * PARKING_SF_PER_SPACE;
+                const baseParkingCost = parkingSF * PARKING_COST_PER_SF;
+                
+                const totalSiteArea = buildingSF + parkingSF;
+                const baseSiteWorkCost = totalSiteArea * SITE_WORK_COST_PER_SF;
+
+                // --- ADJUSTMENT CALCULATIONS ---
+                let residentialAdjustment = 0;
+                let parkingAdjustment = 0;
+                let siteWorkAdjustment = 0;
+                const adjustments = [];
+
+                if (tallStructure) { 
+                    const cost = buildingSF * 7;
+                    residentialAdjustment += cost;
+                    adjustments.push({label: 'Tall Structure', cost: cost});
+                }
+                if (glassEnvelope) {
+                    const cost = buildingSF * 20;
+                    residentialAdjustment += cost;
+                    adjustments.push({label: 'Glass Envelope', cost: cost});
+                }
+                if (roofAmenities) {
+                    const cost = buildingSF * 4;
+                    residentialAdjustment += cost;
+                    adjustments.push({label: 'Roof Amenities', cost: cost});
+                }
+                if (finishes !== 0) {
+                    const cost = buildingSF * finishes;
+                    residentialAdjustment += cost;
+                    adjustments.push({label: `${finishes > 0 ? 'Luxury' : 'Affordable'} Finishes`, cost: cost});
+                }
+                if (luxuryEquipment) {
+                    const cost = buildingSF * 20;
+                    residentialAdjustment += cost;
+                    adjustments.push({label: 'Luxury Equipment', cost: cost});
+                }
+                if (centralHVAC) {
+                    const cost = buildingSF * 20;
+                    residentialAdjustment += cost;
+                    adjustments.push({label: 'Central HVAC', cost: cost});
+                }
+                if (highEndLights) {
+                    const cost = buildingSF * 10;
+                    residentialAdjustment += cost;
+                    adjustments.push({label: 'High-End Lights', cost: cost});
+                }
+                if (underpinning) {
+                    const cost = parkingSF * 30;
+                    parkingAdjustment += cost;
+                    adjustments.push({label: 'Underpinning', cost: cost});
+                }
+                if (deepFoundations) {
+                    const cost = parkingSF * 20;
+                    parkingAdjustment += cost;
+                    adjustments.push({label: 'Deep Foundations', cost: cost});
+                }
+                if (demo) {
+                    const cost = totalSiteArea * 5;
+                    siteWorkAdjustment += cost;
+                    adjustments.push({label: 'Demolition', cost: cost});
+                }
+
+                // --- TOTAL CALCULATIONS ---
+                const adjustedResidentialCost = baseResidentialCost + residentialAdjustment;
+                const adjustedParkingCost = baseParkingCost + parkingAdjustment;
+                const adjustedSiteWorkCost = baseSiteWorkCost + siteWorkAdjustment;
+
+                const adjustedTotal = adjustedResidentialCost + adjustedParkingCost + adjustedSiteWorkCost;
+                
+                const cityFactorCost = adjustedTotal * (cityFactor / 100);
+                const escalationCost = (adjustedTotal + cityFactorCost) * (escalation / 100);
+                
+                const grandTotal = adjustedTotal + cityFactorCost + escalationCost;
+                const costPerUnit = units > 0 ? grandTotal / units : 0;
+
+                // --- UPDATE UI ---
+                updateUI({
+                    baseResidentialCost,
+                    baseParkingCost,
+                    baseSiteWorkCost,
+                    adjustments,
+                    adjustedTotal,
+                    cityFactorCost,
+                    escalationCost,
+                    grandTotal,
+                    costPerUnit
+                });
+            }
+
+            function updateUI(data) {
+                const format = (num) => `$${Math.round(num).toLocaleString()}`;
+
+                document.getElementById('baseResidentialCost').textContent = format(data.baseResidentialCost);
+                document.getElementById('baseParkingCost').textContent = format(data.baseParkingCost);
+                document.getElementById('baseSiteWorkCost').textContent = format(data.baseSiteWorkCost);
+                
+                const adjustmentsSection = document.getElementById('adjustmentsSection');
+                const adjustmentsList = document.getElementById('adjustmentsList');
+                if (data.adjustments.length > 0) {
+                    adjustmentsList.innerHTML = data.adjustments.map(adj => 
+                        `<div class="flex justify-between"><dt>${adj.label}:</dt><dd class="font-mono">${format(adj.cost)}</dd></div>`
+                    ).join('');
+                    adjustmentsSection.classList.remove('hidden');
+                } else {
+                    adjustmentsSection.classList.add('hidden');
+                }
+
+                document.getElementById('adjustedTotal').textContent = format(data.adjustedTotal);
+                document.getElementById('cityFactorCost').textContent = format(data.cityFactorCost);
+                document.getElementById('escalationCost').textContent = format(data.escalationCost);
+                document.getElementById('grandTotal').textContent = format(data.grandTotal);
+                document.getElementById('costPerUnit').textContent = format(data.costPerUnit);
+            }
+            
+            function resetUI() {
+                const format = (num) => `$${num.toLocaleString()}`;
+                document.getElementById('baseResidentialCost').textContent = format(0);
+                document.getElementById('baseParkingCost').textContent = format(0);
+                document.getElementById('baseSiteWorkCost').textContent = format(0);
+                document.getElementById('adjustmentsSection').classList.add('hidden');
+                document.getElementById('adjustmentsList').innerHTML = '';
+                document.getElementById('adjustedTotal').textContent = format(0);
+                document.getElementById('cityFactorCost').textContent = format(0);
+                document.getElementById('escalationCost').textContent = format(0);
+                document.getElementById('grandTotal').textContent = format(0);
+                document.getElementById('costPerUnit').textContent = format(0);
+            }
+
+            // Initial calculation on load
+            calculateCosts();
+        });
+    </script>
+
+</body>
+</html>
